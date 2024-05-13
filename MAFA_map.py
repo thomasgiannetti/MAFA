@@ -9,6 +9,7 @@ import folium
 from streamlit_folium import st_folium
 import streamlit as st
 from streamlit_folium import folium_static
+from folium.plugins import MarkerCluster
 
 df = pd.read_csv('Folium Map FINAL - Feuille 1.csv')
 
