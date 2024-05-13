@@ -41,9 +41,5 @@ def create_map():
   return m
 
 
-map = create_map()
-
-st.title('MAFA - Carte')
-st.markdown('')
-   
+map = create_map()   
 folium_static(map, width=750)
