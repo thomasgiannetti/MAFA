@@ -16,9 +16,10 @@ df = pd.read_csv('Folium Map FINAL - Feuille 1.csv')
 def create_map():
     m = folium.Map(location=[4.74851, -6.6363], zoom_start=12)
     
-    # Create a MarkerCluster layer
-    marker_cluster = MarkerCluster().add_to(m)
-    
+    # Create a MarkerCluster layer with custom options
+    marker_cluster = MarkerCluster(disable_clustering_at_zoom=14).add_to(m)
+    # Adjust the disable_clustering_at_zoom according to your preference
+
     for index, row in df.iterrows():
         iframe_content = (
             f"<b>Entreprenant:</b> {row['Entreprenant/Display Name']} <br><br>"
