@@ -40,23 +40,6 @@ def create_map():
             marker_color = 'green'
         else:
             marker_color = 'gray'
-            f"<b>Entreprenant:</b> {row['Entreprenant/Display Name']} <br><br>"
-            f"<b>Contact:</b> {row['Bon numéro de téléphone']} <br><br>"
-            f"<b>Nom de l'activité:</b> {row['Denomination_ou_raison_sociale']} <br>"
-            f"<b>Date de naissance:</b> {row['Entreprenant/Date de naissance']} <br>"
-            f"<b>Nature de l'activité:</b> {row['Type_activite']} <br><br>"
-            f"<b>Chiffre d'affaire:</b> {row['chiffre_affaire']} <br>"
-            f"<b>Taille de l'activité:</b> {row['taille_activite']} <br>"
-        )
-        popup = folium.Popup(iframe_content, min_width=300, max_width=300)
-        if row['Etat'] == "Annulé/Rejeté":
-            marker_color = 'red'
-        elif row['Etat'] == "Confirmé":
-            marker_color = 'orange'
-        elif row['Etat'] == "Validé":
-            marker_color = 'green'
-        else:
-            marker_color = 'gray'
 
         # Add the marker to the MarkerCluster layer
         folium.Marker(location=[row['Géolatitude'], row['Géolongitude']], icon=folium.Icon(color=marker_color, icon='map-marker', prefix='fa'), popup=popup).add_to(marker_cluster)
