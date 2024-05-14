@@ -67,7 +67,6 @@ js_code = """
 st.markdown(js_code, unsafe_allow_html=True)
 
 # Server-side function to update the map
-@st.cache(allow_output_mutation=True)
 def update_map(params):
     north = params['north']
     south = params['south']
