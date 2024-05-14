@@ -48,7 +48,7 @@ add_markers(map, data)
 folium_static(map, width=750)
 
 # JavaScript code to detect map movement and send new bounds to the server
-st.write("""
+js_code = """
     <script>
         const map = document.getElementsByClassName('leaflet-map')[0];
         map.addEventListener('moveend', function() {
@@ -63,7 +63,8 @@ st.write("""
             google.colab.kernel.invokeFunction('update_map', [params], {});
         });
     </script>
-""")
+"""
+st.markdown(js_code, unsafe_allow_html=True)
 
 # Server-side function to update the map
 @st.cache(allow_output_mutation=True)
