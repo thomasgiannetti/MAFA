@@ -9,7 +9,6 @@ import folium
 from streamlit_folium import st_folium
 import streamlit as st
 from streamlit_folium import folium_static
-from folium import Template
 from folium.plugins import MarkerCluster
 
 
@@ -18,9 +17,9 @@ df = pd.read_csv('Folium Map FINAL - Feuille 1.csv')
 def create_map():
     m = folium.Map(location=[4.74851, -6.6363], zoom_start=12)
     
-    # Create a MarkerCluster layer with custom options
+    # Create a MarkerCluster layer
     marker_cluster = MarkerCluster().add_to(m)
-
+    
     for index, row in df.iterrows():
         iframe_content = (
             f"<b>Entreprenant:</b> {row['Entreprenant/Display Name']} <br><br>"
@@ -45,33 +44,9 @@ def create_map():
 
         # Add the marker to the MarkerCluster layer
         folium.Marker(location=[row['Géolatitude'], row['Géolongitude']], icon=folium.Icon(color=marker_color, icon='map-marker', prefix='fa'), popup=popup).add_to(marker_cluster)
-        
-    # Create a custom icon for clusters to hide the count
-    icon_create_function = '''\
-    function(cluster) {
-        return L.divIcon({
-            html: '<div style="background-color: transparent;"></div>',
-            className: 'custom-cluster-icon',
-            iconSize: L.point(40, 40)
-        });
-    }'''
-
-    marker_cluster._template = Template("""\
-    {% macro script(this, kwargs) %}
-    var {{this.get_name()}} = L.markerClusterGroup({
-      {%- if this.options.maxClusterRadius is not none %}
-      maxClusterRadius: {{this.options.maxClusterRadius}},
-      {%- endif %}
-      {%- if this.options.disableClusteringAtZoom is not none %}
-      disableClusteringAtZoom: {{this.options.disableClusteringAtZoom}},
-      {%- endif %}
-      iconCreateFunction: {{ icon_create_function }}
-    }).addTo({{this._parent.get_name()}});
-    {{this._parent.get_name()}}.addLayer({{this.get_name()}});
-    {% endmacro %}
-    """)
 
     return m
 
 map = create_map()   
 folium_static(map, width=750)
+
