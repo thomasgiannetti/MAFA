@@ -12,38 +12,45 @@ from streamlit_folium import folium_static
 from folium.plugins import MarkerCluster
 
 
-df = pd.read_csv('Folium Map FINAL - Feuille 1.csv')
+df = pd.read_csv('GEOLOCALI - Feuille 1.csv')
 
 def create_map():
     m = folium.Map(location=[4.74851, -6.6363], zoom_start=12)
     
     # Create a MarkerCluster layer
-    marker_cluster = MarkerCluster().add_to(m)
+    marker_cluster = MarkerCluster(maxClusterRadius=30).add_to(m)
+
+    color_map = {
+    "VENTE SUR ETAL": 'green',
+    "RESTAURANT/MAQUIS/BAR/BUVETTE/CAVE": 'orange',
+    "COUTURE": 'red',
+    "VENTE DE VETEMENTS / CHAUSSURES / ACCESSOIRES DE MODE": 'blue',
+    "COIFFURE / COSMETIQUES / BEAUTE": 'purple',
+    "VENTE D'ARTICLES DIVERS": 'pink',
+    "MECANIQUE / GARAGE AUTO": 'brown',
+    "VIRIERS / LOGODOUGOU": 'yellow',
+    "DEFAULT": 'gray'  # Couleur par défaut
+    }
     
     for index, row in df.iterrows():
         iframe_content = (
             f"<b>Entreprenant:</b> {row['Entreprenant/Display Name']} <br><br>"
             f"<b>Contact:</b> {row['Bon numéro de téléphone']} <br><br>"
-            f"<b>Nom de l'activité:</b> {row['Denomination_ou_raison_sociale']} <br>"
-            f"<b>Date de naissance:</b> {row['Entreprenant/Date de naissance']} <br>"
-            f"<b>Nature de l'activité:</b> {row['Type_activite']} <br><br>"
-            f"<b>Chiffre d'affaire:</b> {row['chiffre_affaire']} <br>"
-            f"<b>Taille de l'activité:</b> {row['taille_activite']} <br>"
+            f"<b>Nom de l'activité:</b> {row['Dénomination ou raison sociale']} <br>"
+            f"<b>Age:</b> {row['Age']} <br>"
+            f"<b>Nature de l'activité:</b> {row['Quelle est votre activité principale actuelle?']} <br><br>"
+            f"<b>Chiffre d'affaire:</b> {row['Unp bon CA']} <br>"
         )
 
         popup = folium.Popup(iframe_content, min_width=300, max_width=300)
 
-        if row['Etat'] == "Annulé/Rejeté":
-            marker_color = 'red'
-        elif row['Etat'] == "Confirmé":
-            marker_color = 'orange'
-        elif row['Etat'] == "Validé":
-            marker_color = 'green'
-        else:
-            marker_color = 'gray'
-
+        activity = row['Quelle est votre activité principale actuelle?']
+        color_map.get(activity, color_map['DEFAULT'])
+        
         # Add the marker to the MarkerCluster layer
-        folium.Marker(location=[row['Géolatitude'], row['Géolongitude']], icon=folium.Icon(color=marker_color, icon='map-marker', prefix='fa'), popup=popup).add_to(marker_cluster)
+        folium.Marker(location=[row['Géolatitude'], row['Géolongitude']], 
+                      icon=folium.Icon(color= marker_color, icon='map-marker', prefix='fa'), 
+                      popup=popup).add_to(marker_cluster)
 
     return m
 
