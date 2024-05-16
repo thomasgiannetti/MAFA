@@ -18,7 +18,7 @@ def create_map():
     m = folium.Map(location=[4.74851, -6.6363], zoom_start=12)
     
     # Create a MarkerCluster layer
-    marker_cluster = MarkerCluster(maxClusterRadius=30).add_to(m)
+    marker_cluster = MarkerCluster(maxClusterRadius=1).add_to(m)
 
     color_map = {
     "VENTE SUR ETAL": 'green',
