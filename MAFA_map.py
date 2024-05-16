@@ -45,7 +45,7 @@ def create_map():
         popup = folium.Popup(iframe_content, min_width=300, max_width=300)
 
         activity = row['Quelle est votre activité principale actuelle?']
-        color_map.get(activity, color_map['DEFAULT'])
+        marker_color = color_map.get(activity, color_map['DEFAULT'])
         
         # Add the marker to the MarkerCluster layer
         folium.Marker(location=[row['Géolatitude'], row['Géolongitude']], 
