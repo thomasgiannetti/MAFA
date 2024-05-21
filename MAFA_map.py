@@ -12,7 +12,7 @@ from streamlit_folium import folium_static
 from folium.plugins import MarkerCluster
 
 
-df = pd.read_csv('COPIE ID30 - Feuille 1.csv')
+df = pd.read_csv('COPIE ID30 - Feuille 1 (1).csv')
 
 def is_float(value):
     try:
