@@ -20,7 +20,7 @@ df['Géolongitude'] = pd.to_numeric(df['Géolongitude'], errors='coerce')
 # Filter out rows where either 'Géolatitude' or 'Géolongitude' is NaN
 df = df.dropna(subset=['Géolatitude', 'Géolongitude'])
 
-unique_activities = df['Quelle est votre activité principale actuelle? '].unique()
+unique_activities = df['Quelle est votre activité principale actuelle?'].unique()
 
 selected_activity = st.selectbox('Select your main current activity:', unique_activities)
 
