@@ -37,7 +37,6 @@ def create_map():
             f"<b>Entreprenant:</b> {row['Entreprenant/Display Name']} <br><br>"
             f"<b>Contact:</b> {row['Bon numéro de téléphone']} <br><br>"
             f"<b>Nom de l'activité:</b> {row['Dénomination ou raison sociale']} <br>"
-            f"<b>Age:</b> {row['Age']} <br>"
             f"<b>Nature de l'activité:</b> {row['Quelle est votre activité principale actuelle?']} <br><br>"
             f"<b>Chiffre d'affaire:</b> {row['Unp bon CA']} <br>"
         )
