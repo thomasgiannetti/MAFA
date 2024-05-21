@@ -20,11 +20,15 @@ df['Géolongitude'] = pd.to_numeric(df['Géolongitude'], errors='coerce')
 # Filter out rows where either 'Géolatitude' or 'Géolongitude' is NaN
 df = df.dropna(subset=['Géolatitude', 'Géolongitude'])
 
-unique_activities = df['Quelle est votre activité principale actuelle?'].unique()
+unique_activities = df['Quelle est votre activité principale actuelle? '].unique()
 
-selected_activity = st.selectbox('Select your main current activity:', unique_activities)
+selected_activities = st.multiselect('Select your main current activities:', unique_activities)
 
-df = df[df['Quelle est votre activité principale actuelle? '] == selected_activity]
+if selected_activities:
+    df = df[df['Quelle est votre activité principale actuelle? '].isin(selected_activities)]
+else:
+    df = df  # If no activity is selected, display the entire DataFrame
+
 
 def create_map():
     m = folium.Map(location=[4.74851, -6.6363], zoom_start=12)
