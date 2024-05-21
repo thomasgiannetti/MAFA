@@ -57,10 +57,6 @@ def create_map():
         folium.Marker(location=[row['Géolatitude'], row['Géolongitude']], 
                       icon=folium.Icon(color= marker_color, icon='map-marker', prefix='fa'), 
                       popup=popup).add_to(marker_cluster)
-        sw = df[['4.7678576344256065', '-6.68117062235941']].min().values.tolist()
-        ne = df[['4.731860090743095', '-6.615537576476615']].max().values.tolist()
-        
-        m.fit_bounds([sw, ne]) 
 
     return m
 
