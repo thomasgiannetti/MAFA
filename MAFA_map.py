@@ -18,7 +18,7 @@ df['Géolatitude'] = pd.to_numeric(df['Géolatitude'], errors='coerce')
 df['Géolongitude'] = pd.to_numeric(df['Géolongitude'], errors='coerce')
 
 # Filter out rows where either 'Géolatitude' or 'Géolongitude' is NaN
-df_filtered = df.dropna(subset=['Géolatitude', 'Géolongitude'])
+df = df.dropna(subset=['Géolatitude', 'Géolongitude'])
 
 
 def create_map():
