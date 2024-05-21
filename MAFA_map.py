@@ -22,7 +22,7 @@ df = df.dropna(subset=['Géolatitude', 'Géolongitude'])
 
 unique_activities = df['Quelle est votre activité principale actuelle?'].unique()
 
-selected_activities = st.multiselect('Sélectionnez un type d'activité:', unique_activities)
+selected_activities = st.multiselect("Sélectionnez un type d'activité:", unique_activities)
 
 if selected_activities:
     df = df[df['Quelle est votre activité principale actuelle?'].isin(selected_activities)]
