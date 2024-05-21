@@ -12,7 +12,7 @@ from streamlit_folium import folium_static
 from folium.plugins import MarkerCluster
 
 
-df = pd.read_csv('GEOLOCALI - Feuille 1.csv')
+df = pd.read_csv('COPIE ID30 - Feuille 1.csv')
 
 def create_map():
     m = folium.Map(location=[4.74851, -6.6363], zoom_start=12)
