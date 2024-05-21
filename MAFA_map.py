@@ -25,7 +25,7 @@ unique_activities = df['Quelle est votre activité principale actuelle?'].unique
 selected_activities = st.multiselect('Select your main current activities:', unique_activities)
 
 if selected_activities:
-    df = df[df['Quelle est votre activité principale actuelle? '].isin(selected_activities)]
+    df = df[df['Quelle est votre activité principale actuelle?'].isin(selected_activities)]
 else:
     df = df  # If no activity is selected, display the entire DataFrame
 
