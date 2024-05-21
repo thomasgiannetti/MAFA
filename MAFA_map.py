@@ -14,6 +14,13 @@ from folium.plugins import MarkerCluster
 
 df = pd.read_csv('COPIE ID30 - Feuille 1.csv')
 
+df['Géolatitude'] = pd.to_numeric(df['Géolatitude'], errors='coerce')
+df['Géolongitude'] = pd.to_numeric(df['Géolongitude'], errors='coerce')
+
+# Filter out rows where either 'Géolatitude' or 'Géolongitude' is NaN
+df_filtered = df.dropna(subset=['Géolatitude', 'Géolongitude'])
+
+
 def create_map():
     m = folium.Map(location=[4.74851, -6.6363], zoom_start=12)
     
@@ -47,7 +54,7 @@ def create_map():
         marker_color = color_map.get(activity, color_map['DEFAULT'])
         
         # Add the marker to the MarkerCluster layer
-        folium.Marker(location=[float(row['Géolatitude']), float(row['Géolongitude'])], 
+        folium.Marker(location=[row['Géolatitude'], row['Géolongitude']], 
                       icon=folium.Icon(color= marker_color, icon='map-marker', prefix='fa'), 
                       popup=popup).add_to(marker_cluster)
         sw = df[['4.7678576344256065', '-6.68117062235941']].min().values.tolist()
