@@ -14,10 +14,18 @@ from folium.plugins import MarkerCluster
 
 df = pd.read_csv('COPIE ID30 - Feuille 1.csv')
 
-df['Géolatitude'] = pd.to_numeric(df['Géolatitude'], errors='coerce')
-df['Géolongitude'] = pd.to_numeric(df['Géolongitude'], errors='coerce')
+def is_float(value):
+    try:
+        float(value)
+        return True
+    except ValueError:
+        return False
 
-# Filter out rows where either 'Géolatitude' or 'Géolongitude' is NaN
+# Apply the check to the 'Géolatitude' and 'Géolongitude' columns
+df['Géolatitude'] = df['Géolatitude'].apply(lambda x: float(x) if is_float(x) else None)
+df['Géolongitude'] = df['Géolongitude'].apply(lambda x: float(x) if is_float(x) else None)
+
+# Drop rows with NaN values in 'Géolatitude' and 'Géolongitude'
 df = df.dropna(subset=['Géolatitude', 'Géolongitude'])
 
 unique_activities = df['Quelle est votre activité principale actuelle?'].unique()
