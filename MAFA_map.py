@@ -37,6 +37,7 @@ def create_map():
             f"<b>Entreprenant:</b> {row['Entreprenant/Display Name']} <br><br>"
             f"<b>Contact:</b> {row['Bon numéro de téléphone']} <br><br>"
             f"<b>Nom de l'activité:</b> {row['Dénomination ou raison sociale']} <br>"
+            f"<b>Age:</b> {row['Age']} <br>"
             f"<b>Nature de l'activité:</b> {row['Quelle est votre activité principale actuelle?']} <br><br>"
             f"<b>Chiffre d'affaire:</b> {row['Unp bon CA']} <br>"
         )
@@ -47,7 +48,7 @@ def create_map():
         marker_color = color_map.get(activity, color_map['DEFAULT'])
         
         # Add the marker to the MarkerCluster layer
-        folium.Marker(location=[row['Géolatitude'], row['Géolongitude']], 
+        folium.Marker(location=[float(row['Géolatitude']), float(row['Géolongitude'])], 
                       icon=folium.Icon(color= marker_color, icon='map-marker', prefix='fa'), 
                       popup=popup).add_to(marker_cluster)
         sw = df[['4.7678576344256065', '-6.68117062235941']].min().values.tolist()
